@@ -1,15 +1,24 @@
-
-import Router  from "next/router";
+import Router from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import IonInput from "../components/IonInput";
 import { Fbinomial, Gbinomial, Pbinomial } from "../functions/binomial";
 
 const distribution = (props) => {
-
+	const [r, setR] = useState(undefined);
 	const [n, setN] = useState(undefined);
 	const [p, setP] = useState(undefined);
-	const [r, setR] = useState(undefined);
+	const [fb, setFb] = useState(undefined);
+
+	function calculateP(){
+		let iP = 0
+		let res = 999
+		while(res > 0) {
+			iP = iP + 0.001 // deberia dupicarlo o dividirlo condicionalmente
+			res = Fbinomial(r, n, iP) - fb
+		}
+		return iP
+	}
 
 	return (
 		<>
@@ -66,24 +75,48 @@ const distribution = (props) => {
 						<ion-item lines="none"></ion-item>
 					)}
 
-					{n && p && r ? (
-						<>
-							<ion-item>
-								Pb({r} / {n}, {p}) ={" "}
-								{Pbinomial(r, n, p).toFixed(5)}
-							</ion-item>
-							<ion-item>
-								Fb({r} / {n}, {p}) ={" "}
-								{Fbinomial(r, n, p).toFixed(5)}
-							</ion-item>
-							<ion-item>
-								Gb({r} / {n}, {p}) ={" "}
-								{Gbinomial(r, n, p).toFixed(5)}
-							</ion-item>
-						</>
-					) : (
-						""
-					)}
+					{/* {n && p && r ? ( */}
+					<>
+						<ion-item>
+							<ion-label>
+								Fb({r || "r"} / {n || "n"}, {p || "p"}) ={" "}
+							</ion-label>
+							{n && p && r ? (
+								Fbinomial(r, n, p).toFixed(5)
+							) : (
+								<IonInput
+									// placeholder="Enter Fb"
+									type="number"
+									onChange={(e) =>
+										setFb(Number(e.detail.value))
+									}
+								/>
+							)}
+						</ion-item>
+
+						<ion-item>
+							<ion-label>
+								Gb({r || "r"} / {n || "n"}, {p || "p"})
+								=&nbsp;&nbsp;
+								{n && p && r
+									? Gbinomial(r, n, p).toFixed(5)
+									: ""}
+							</ion-label>
+						</ion-item>
+
+						<ion-item>
+							<ion-label>
+								Pb({r || "r"} / {n || "n"}, {p || "p"})
+								=&nbsp;&nbsp;
+								{n && p && r
+									? Pbinomial(r, n, p).toFixed(5)
+									: ""}
+							</ion-label>
+						</ion-item>
+					</>
+					{/* ) : ( 
+						 "" 
+					 )} */}
 				</ion-list>
 			</ion-content>
 		</>

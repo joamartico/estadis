@@ -13,21 +13,26 @@ const inferencia_bernoulli = () => {
 
 	function calculateCaso1() {
 		let best = {};
-		best.resα = 1;
-		best.resβ = 1;
-
+		let found = false;
+		
 		let iN = 1;
-		while (best.resα > 0 && best.resβ > 0) {
+		while (!found) {
+			let resβ = -1
+			let resα = -1
 			for (
 				let iRc = Math.floor(iN * 0.01);
-				iRc < Math.floor(iN * 0.025);
-				iRc++
+				iRc < Math.ceil(iN * 0.03) && !found && resβ < 0;
+				// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
+				iRc =
+					Math.floor(iN * 0.0001) == 0
+						? iRc + 1
+						: iRc + Math.floor(iN * 0.0001) + 1 // muy bajo
 			) {
 				const Gb = Gbinomial(iRc, iN, po); // α
 				const Fb = Fbinomial(iRc - 1, iN, p1); // β
-				let res = Gb + Fb - (α + β);
-				let resα = Gb - α;
-				let resβ = Fb - β;
+				// let res = Gb + Fb - (α + β);
+				resα = Gb - α;
+				resβ = Fb - β;
 
 				console.log(
 					"n = ",
@@ -49,8 +54,9 @@ const inferencia_bernoulli = () => {
 				);
 
 				if (resα < 0 && resβ < 0 && Gb / α > 0.6 && Fb / β > 0.6) {
-					best.resα = resα;
-					best.resβ = resβ;
+					// best.resα = resα;
+					// best.resβ = resβ;
+					found = true;
 					best.n = iN;
 					best.rc = iRc;
 				}
@@ -59,7 +65,7 @@ const inferencia_bernoulli = () => {
 			iN = Math.ceil(iN + iN * 0.01);
 		}
 		console.log("best: ", best);
-		console.log("bestRes: ", best.res);
+		// console.log("bestRes: ", best.res);
 		setBest(best);
 		return best;
 	}

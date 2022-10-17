@@ -1,12 +1,25 @@
 
 /* global BigInt */
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import IonSearchbar from "../components/IonSearchbar";
+import { BigDecimal, fact } from "../functions/general";
+import Big from 'big.js';
 
 export default function Home() {
 	const [search, setSearch] = useState("");
+
+
+	// useEffect(() => {
+	
+	// const a = Big((fact(5000) / (fact(5000 - 500) * fact(500))).toString())
+	// console.log("a: ", a)
+	// const b = Big(0.1).pow(500).times( Big(1-0.1).pow(5000 - 500) ) 
+	// console.log("b: ", b)
+	// console.log("RES: ", Number(a.times(b)))
+	// }, [])
+	
 
 
 	return (
