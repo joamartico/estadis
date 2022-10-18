@@ -10,15 +10,24 @@ const binomial = (props) => {
 	const [p, setP] = useState(undefined);
 	const [fb, setFb] = useState(undefined);
 
-	function calculateP(){
-		let iP = 0
-		let res = 999
-		while(res > 0) {
-			iP = iP + 0.001 // deberia dupicarlo o dividirlo condicionalmente
-			res = Fbinomial(r, n, iP) - fb
+	function calculateP() {
+		let iP = 0.001;
+		while (Math.abs(Fbinomial(r, n, iP) - fb) > 0.001) {
+			//iP = iP + 0.001; // deberia dupicarlo o dividirlo condicionalmente
+			if (Fbinomial(r, n, iP) > fb) {
+				iP = iP * 1.2;
+			} else {
+				iP = iP * 0.7;
+			}
+			console.log(iP);
 		}
-		return iP
+		setP(iP.toFixed(5));
+		return iP;
 	}
+
+	// if (r && n && fb && p === 0) {
+	// 	calculateP();
+	// }
 
 	return (
 		<>
@@ -54,6 +63,7 @@ const binomial = (props) => {
 							type="number"
 							placeholder="Enter P(r) value"
 							onChange={(e) => setP(Number(e.detail.value))}
+							value={p}
 						/>
 					</ion-item>
 
@@ -67,7 +77,11 @@ const binomial = (props) => {
 					</ion-item>
 					{/* </ion-list> */}
 
-					{n === 0 || p === 0 || r === 0 ? (
+					{n && r && fb ? (
+						<ion-button onClick={() => calculateP()}>
+							Calcular P
+						</ion-button>
+					) : n === 0 || p === 0 || r === 0 ? (
 						<ion-item style={{ color: "red" }}>
 							Faltan datos para poder calcular
 						</ion-item>

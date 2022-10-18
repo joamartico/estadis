@@ -31,10 +31,10 @@ function MyApp({ Component, pageProps }) {
 			<Head>
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 				{/* SEO  */}
-				<title>Boilerplate</title>
+				<title>Estadis</title>
 				<meta
 					name="description"
-					content="Boilerplate is your web app to search and track your food and nutrition."
+					content="Estadis is your web app to search and track your food and nutrition."
 				/>
 				<meta
 					name="keywords"
@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
 				<meta name="theme-color" content="#ffffff"></meta>
 			</Head>
 			<Context>
-				<ion-app mode='ios'>
+				<ion-app mode="ios">
 					<Component {...pageProps} />
 				</ion-app>
 			</Context>

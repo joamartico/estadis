@@ -12,11 +12,14 @@ const normal = (props) => {
 	const [fb, setFb] = useState(undefined);
 
 	function calculateP() {
-		let iP = 0;
-		let res = 999;
-		while (res > 0) {
-			iP = iP + 0.001; // deberia dupicarlo o dividirlo condicionalmente
-			res = Fbinomial(r, n, iP) - fb;
+		let iP = 0.001;
+		while (Math.abs(Fbinomial(r, n, iP) - fb) > 0.001) {
+			//iP = iP + 0.001; // deberia dupicarlo o dividirlo condicionalmente
+			if(Fbinomial(r, n, iP) > fb){
+				iP = iP * 2
+			} else {
+				iP = iP * 2/3
+			}
 		}
 		return iP;
 	}
