@@ -77,7 +77,7 @@ const binomial = (props) => {
 					</ion-item>
 					{/* </ion-list> */}
 
-					{n && r && fb ? (
+					{n && r && fb && !p ? (
 						<ion-button onClick={() => calculateP()}>
 							Calcular P
 						</ion-button>
