@@ -50,6 +50,7 @@ export default function Home() {
 					</ion-toolbar>
 				</ion-header>
 				<ion-item onClick={() => Router.push("binomial")}>Binomial</ion-item>
+				<ion-item onClick={() => Router.push("normal")}>Normal</ion-item>
 				<ion-item onClick={() => Router.push("binomial")}>Pascal</ion-item>
 				<ion-item onClick={() => Router.push("binomial")}>Poisson</ion-item>
 				<ion-item onClick={() => Router.push("inferencia_bernoulli")}>

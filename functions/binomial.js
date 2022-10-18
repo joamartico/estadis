@@ -1,6 +1,7 @@
 import { fact } from "./general";
 
 import Big from "big.js";
+import { Fnormal } from "./normal";
 
 
 export function Pbinomial(r, n, p) {
@@ -19,6 +20,11 @@ export function Pbinomial(r, n, p) {
 }
 
 export function Fbinomial(r, n, p) {
+
+	if(n * p > 10 && n *(1-p) > 10){
+		return Fnormal(r+0.5, n*p, Math.sqrt(n*p*(1-p)))
+	}
+
 	let sum = 0;
 	for (let i = 0; i <= r; i++) {
 		sum = sum + Pbinomial(i, n, p);
@@ -32,5 +38,10 @@ export function Gbinomial(r, n, p) {
 	// 	sum = sum + Pbinomial(i, n, p)
 	// }
 	// return sum;
+
+	if(n * p > 10 && n *(1-p) > 10){
+		return 1 - Fnormal(r-0.5, n*p, Math.sqrt(n*p*(1-p)))
+	}
+
 	return 1 - Fbinomial(r - 1, n, p);
 }

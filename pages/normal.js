@@ -3,21 +3,23 @@ import { useState } from "react";
 import styled from "styled-components";
 import IonInput from "../components/IonInput";
 import { Fbinomial, Gbinomial, Pbinomial } from "../functions/binomial";
+import { Fnormal, Gnormal, Pnormal, PnormalStd } from "../functions/normal";
+var { jStat } = require('jstat')
 
-const binomial = (props) => {
-	const [r, setR] = useState(undefined);
-	const [n, setN] = useState(undefined);
-	const [p, setP] = useState(undefined);
+const normal = (props) => {
+	const [x, setX] = useState(undefined);
+	const [µ, setµ] = useState(undefined);
+	const [σ, setσ] = useState(undefined);
 	const [fb, setFb] = useState(undefined);
 
-	function calculateP(){
-		let iP = 0
-		let res = 999
-		while(res > 0) {
-			iP = iP + 0.001 // deberia dupicarlo o dividirlo condicionalmente
-			res = Fbinomial(r, n, iP) - fb
+	function calculateP() {
+		let iP = 0;
+		let res = 999;
+		while (res > 0) {
+			iP = iP + 0.001; // deberia dupicarlo o dividirlo condicionalmente
+			res = Fbinomial(r, n, iP) - fb;
 		}
-		return iP
+		return iP;
 	}
 
 	return (
@@ -36,38 +38,38 @@ const binomial = (props) => {
 			<ion-content>
 				<ion-list>
 					<ion-list-header>
-						<h2>Distribución Binomial</h2>
+						<h2>Distribución Normal</h2>
 					</ion-list-header>
-
 					<ion-item>
-						<ion-label>n = </ion-label>
+						<ion-label>x = </ion-label>
 						<IonInput
 							type="number"
-							placeholder="Enter n value"
-							onChange={(e) => setN(Number(e.detail.value))}
+							placeholder="Enter x value"
+							onChange={(e) => setX(Number(e.detail.value))}
 						/>
 					</ion-item>
 
 					<ion-item>
-						<ion-label>P = </ion-label>
+						<ion-label>µ = </ion-label>
 						<IonInput
 							type="number"
-							placeholder="Enter P(r) value"
-							onChange={(e) => setP(Number(e.detail.value))}
+							placeholder="Enter µ value"
+							onChange={(e) => setµ(Number(e.detail.value))}
 						/>
 					</ion-item>
 
 					<ion-item>
-						<ion-label>r = </ion-label>
+						<ion-label>σ = </ion-label>
 						<IonInput
 							type="number"
-							placeholder="Enter r value"
-							onChange={(e) => setR(Number(e.detail.value))}
+							placeholder="Enter σ value"
+							onChange={(e) => setσ(Number(e.detail.value))}
 						/>
 					</ion-item>
+
 					{/* </ion-list> */}
 
-					{n === 0 || p === 0 || r === 0 ? (
+					{x === 0 || µ === 0 || σ === 0 ? (
 						<ion-item style={{ color: "red" }}>
 							Faltan datos para poder calcular
 						</ion-item>
@@ -75,14 +77,14 @@ const binomial = (props) => {
 						<ion-item lines="none"></ion-item>
 					)}
 
-					{/* {n && p && r ? ( */}
+					{/* {n && p && x ? ( */}
 					<>
 						<ion-item>
 							<ion-label>
-								Fb({r || "r"} / {n || "n"}, {p || "p"}) ={" "}
+								Fn({x || "x"} / {µ || "µ"}, {σ || "σ"}) ={" "}
 							</ion-label>
-							{n && p && r ? (
-								Fbinomial(r, n, p).toFixed(5)
+							{σ && µ && x ? (
+								Fnormal(x, µ, σ).toFixed(5)
 							) : (
 								<IonInput
 									// placeholder="Enter Fb"
@@ -96,23 +98,21 @@ const binomial = (props) => {
 
 						<ion-item>
 							<ion-label>
-								Gb({r || "r"} / {n || "n"}, {p || "p"})
-								=&nbsp;&nbsp;
-								{n && p && r
-									? Gbinomial(r, n, p).toFixed(5)
+								Gn({x || "x"} / {µ || "µ"}, {σ || "σ"}) =&nbsp;&nbsp;
+								{σ && µ && x
+									? Gnormal(x, µ, σ).toFixed(5)
 									: ""}
 							</ion-label>
 						</ion-item>
 
-						<ion-item>
+						{/* <ion-item>
 							<ion-label>
-								Pb({r || "r"} / {n || "n"}, {p || "p"})
-								=&nbsp;&nbsp;
-								{n && p && r
-									? Pbinomial(r, n, p).toFixed(5)
+								Pn({x || "x"} / {µ || "µ"}, {σ || "σ"}) =&nbsp;&nbsp;
+								{σ && µ && x
+									? Pnormal(x, µ, σ).toFixed(5)
 									: ""}
 							</ion-label>
-						</ion-item>
+						</ion-item> */}
 					</>
 					{/* ) : ( 
 						 "" 
@@ -123,7 +123,7 @@ const binomial = (props) => {
 	);
 };
 
-export default binomial;
+export default normal;
 
 const Button = styled.div`
 	height: 60px;

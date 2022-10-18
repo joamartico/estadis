@@ -11,63 +11,124 @@ const inferencia_bernoulli = () => {
 	const [β, setβ] = useState(undefined);
 	const [best, setBest] = useState({});
 
-	function calculateCaso1() {
-		let best = {};
-		let found = false;
-		
-		let iN = 1;
-		while (!found) {
-			let resβ = -1
-			let resα = -1
-			for (
-				let iRc = Math.floor(iN * 0.01);
-				iRc < Math.ceil(iN * 0.03) && !found && resβ < 0;
-				// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
-				iRc =
-					Math.floor(iN * 0.0001) == 0
-						? iRc + 1
-						: iRc + Math.floor(iN * 0.0001) + 1 // muy bajo
-			) {
-				const Gb = Gbinomial(iRc, iN, po); // α
-				const Fb = Fbinomial(iRc - 1, iN, p1); // β
-				// let res = Gb + Fb - (α + β);
-				resα = Gb - α;
-				resβ = Fb - β;
+	function calculate(caso) {
+		if (caso == 1) {
+			let best = {};
+			let found = false;
 
-				console.log(
-					"n = ",
-					iN,
-					"rc = ",
-					iRc,
-					" ------ ",
-					Gb.toFixed(4),
-					"-",
-					α.toFixed(4),
-					" = ",
-					resα.toFixed(4),
-					"//////",
-					Fb.toFixed(4),
-					"-",
-					β.toFixed(4),
-					" = ",
-					resβ.toFixed(4)
-				);
+			let iN = 1;
+			while (!found) {
+				let resβ = -1;
+				let resα = -1;
+				for (
+					let iRc = Math.floor(iN * 0.01);
+					iRc < Math.ceil(iN * 0.03) && !found && resβ < 0;
+					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
+					iRc =
+						Math.floor(iN * 0.0001) == 0
+							? iRc + 1
+							: iRc + Math.floor(iN * 0.0001) + 1 // muy bajo
+				) {
+					const Gb = Gbinomial(iRc, iN, po); // α
+					const Fb = Fbinomial(iRc - 1, iN, p1); // β
+					// let res = Gb + Fb - (α + β);
+					resα = Gb - α;
+					resβ = Fb - β;
 
-				if (resα < 0 && resβ < 0 && Gb / α > 0.6 && Fb / β > 0.6) {
-					// best.resα = resα;
-					// best.resβ = resβ;
-					found = true;
-					best.n = iN;
-					best.rc = iRc;
+					console.log(
+						"n = ",
+						iN,
+						"rc = ",
+						iRc,
+						" ------ ",
+						Gb.toFixed(4),
+						"-",
+						α.toFixed(4),
+						" = ",
+						resα.toFixed(4),
+						"//////",
+						Fb.toFixed(4),
+						"-",
+						β.toFixed(4),
+						" = ",
+						resβ.toFixed(4)
+					);
+
+					if (resα < 0 && resβ < 0 && Gb / α > 0.6 && Fb / β > 0.6) {
+						// best.resα = resα;
+						// best.resβ = resβ;
+						found = true;
+						best.n = iN;
+						best.rc = iRc;
+					}
 				}
-			}
 
-			iN = Math.ceil(iN + iN * 0.01);
+				iN = Math.ceil(iN + iN * 0.01);
+			}
+			console.log("best: ", best);
+			// console.log("bestRes: ", best.res);
+			setBest(best);
+			return best;
 		}
-		console.log("best: ", best);
-		// console.log("bestRes: ", best.res);
-		setBest(best);
-		return best;
+
+		if (caso == 2) {
+			let best = {};
+			let found = false;
+
+			let iN = 1;
+			while (!found) {
+				let resβ = -1;
+				let resα = -1;
+				for (
+					let iRc = Math.floor(iN * 0.01);
+					iRc < Math.ceil(iN * 0.03) && !found;
+					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
+					iRc =
+						Math.floor(iN * 0.0001) == 0
+							? iRc + 1
+							: iRc + Math.floor(iN * 0.0001) + 1 // muy bajo
+				) {
+					const Fb = Fbinomial(iRc, iN, po); // α
+					const Gb = Gbinomial(iRc + 1, iN, p1); // β
+					// let res = Gb + Fb - (α + β);
+					resα = Fb - α;
+					resβ = Gb - β;
+
+					console.log(
+						"n = ",
+						iN,
+						"rc = ",
+						iRc,
+						" ------ ",
+						Gb.toFixed(4),
+						"-",
+						α.toFixed(4),
+						" = ",
+						resα.toFixed(4),
+						"//////",
+						Fb.toFixed(4),
+						"-",
+						β.toFixed(4),
+						" = ",
+						resβ.toFixed(4)
+					);
+
+					if (resα < 0 && resβ < 0 && Gb / α > 0.6 && Fb / β > 0.6) {
+						// best.resα = resα;
+						// best.resβ = resβ;
+						found = true;
+						best.n = iN;
+						best.rc = iRc;
+					}
+				}
+
+				iN = Math.ceil(iN + iN * 0.01);
+			}
+			console.log("best: ", best);
+			// console.log("bestRes: ", best.res);
+			setBest(best);
+			return best;
+		}
 	}
 
 	return (
@@ -90,27 +151,21 @@ const inferencia_bernoulli = () => {
 			<ion-content>
 				<ion-list>
 					<ion-list-header>
-						<h2>Inferencia en los procesos de Bernoulli</h2>
+						<h2>Inferencia en los procesos de Bernoulli {option && `, caso ${option}`}</h2>
 					</ion-list-header>
 
 					{!option ? (
 						<>
 							<ion-item onClick={() => setOption(1)}>
-								<ion-label>
 									Ensayo de Hipótesis Ho) p ≤ po{" "}
-								</ion-label>
 							</ion-item>
 
 							<ion-item onClick={() => setOption(2)}>
-								<ion-label>
 									Ensayo de Hipótesis Ho) p ≥ po{" "}
-								</ion-label>
 							</ion-item>
 
 							<ion-item onClick={() => setOption(3)}>
-								<ion-label>
 									Intervalo de confianza para p
-								</ion-label>
 							</ion-item>
 						</>
 					) : (
@@ -159,7 +214,7 @@ const inferencia_bernoulli = () => {
 								/>
 							</ion-item>
 
-							<ion-button onClick={calculateCaso1}>
+							<ion-button onClick={() => calculate(option)}>
 								Calcular n y rc
 							</ion-button>
 
