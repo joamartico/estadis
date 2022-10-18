@@ -22,7 +22,7 @@ const inferencia_bernoulli = () => {
 				let resα = -1;
 				for (
 					let iRc = Math.floor(iN * 0.01);
-					iRc < Math.ceil(iN * 0.03) && !found && resβ < 0;
+					iRc < Math.ceil(iN * 0.2) && !found && resβ < 0;
 					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
 					iRc =
 						Math.floor(iN * 0.0001) == 0
@@ -81,7 +81,7 @@ const inferencia_bernoulli = () => {
 				let resα = -1;
 				for (
 					let iRc = Math.floor(iN * 0.01);
-					iRc < Math.ceil(iN * 0.03) && !found;
+					iRc < Math.ceil(iN * 0.2) && !found;
 					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
 					iRc =
 						Math.floor(iN * 0.0001) == 0
@@ -113,7 +113,7 @@ const inferencia_bernoulli = () => {
 						resβ.toFixed(4)
 					);
 
-					if (resα < 0 && resβ < 0 && Gb / α > 0.6 && Fb / β > 0.6) {
+					if (resα < 0 && resβ < 0 && Gb / β > 0.6 && Fb / α  > 0.6) {
 						// best.resα = resα;
 						// best.resβ = resβ;
 						found = true;
@@ -123,6 +123,7 @@ const inferencia_bernoulli = () => {
 				}
 
 				iN = Math.ceil(iN + iN * 0.01);
+				// iN = iN + 1
 			}
 			console.log("best: ", best);
 			// console.log("bestRes: ", best.res);
@@ -151,7 +152,7 @@ const inferencia_bernoulli = () => {
 			<ion-content>
 				<ion-list>
 					<ion-list-header>
-						<h2>Inferencia en los procesos de Bernoulli {option && `, caso ${option}`}</h2>
+						<h2>Inferencia en los procesos de Bernoulli{option && `, caso ${option}`}</h2>
 					</ion-list-header>
 
 					{!option ? (
@@ -221,10 +222,10 @@ const inferencia_bernoulli = () => {
 							<ion-item>n = {best.n}</ion-item>
 							<ion-item>rc = {best.rc}</ion-item>
 							<ion-item>
-								α = {Gbinomial(best.rc, best.n, po)}
+								α = {option == 1 ? Gbinomial(best.rc, best.n, po).toFixed(5) : Fbinomial(best.rc, best.n, po).toFixed(5)}
 							</ion-item>
 							<ion-item>
-								β = {Fbinomial(best.rc - 1, best.n, p1)}
+								β = {option == 1 ? Fbinomial(best.rc - 1, best.n, p1).toFixed(5) : Gbinomial(best.rc + 1, best.n, p1).toFixed(5)}
 							</ion-item>
 						</>
 					)}

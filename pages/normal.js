@@ -4,7 +4,6 @@ import styled from "styled-components";
 import IonInput from "../components/IonInput";
 import { Fbinomial, Gbinomial, Pbinomial } from "../functions/binomial";
 import { Fnormal, Gnormal, Pnormal, PnormalStd } from "../functions/normal";
-var { jStat } = require('jstat')
 
 const normal = (props) => {
 	const [x, setX] = useState(undefined);

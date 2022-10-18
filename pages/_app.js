@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
 				<meta name="theme-color" content="#ffffff"></meta>
 			</Head>
 			<Context>
-				<ion-app>
+				<ion-app mode='ios'>
 					<Component {...pageProps} />
 				</ion-app>
 			</Context>
