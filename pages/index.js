@@ -3,11 +3,17 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import IonSearchbar from "../components/IonSearchbar";
-import { BigDecimal, fact } from "../functions/general";
-import Big from "big.js";
 
 export default function Home() {
 	const [search, setSearch] = useState("");
+
+	const distributions = [
+		"Binomial",
+		"Normal",
+		"Pascal",
+		"Possion",
+		"Inferencia Bernoulli",
+	];
 
 	// useEffect(() => {
 
@@ -33,37 +39,29 @@ export default function Home() {
 				</ion-toolbar>
 			</ion-header>
 
-			<ion-content fullscreen >
+			<ion-content fullscreen>
 				<ion-header collapse="condense">
-					<ion-toolbar >
+					<ion-toolbar>
 						<ion-title size="large">Distribuciones</ion-title>
 					</ion-toolbar>
-					<ion-toolbar >
+					<ion-toolbar>
 						<IonSearchbar
-						 	mode='ios'
+							mode="ios"
 							value={search}
 							onChange={(e) => setSearch(e.detail.value)}
 							placeholder="Buscar"
-							animated
-							show-cancel-button="focus"
+							// animated
+							// show-cancel-button="focus"
 						/>
 					</ion-toolbar>
 				</ion-header>
-				<ion-item onClick={() => Router.push("binomial")}>
-					Binomial
-				</ion-item>
-				<ion-item onClick={() => Router.push("normal")}>
-					Normal
-				</ion-item>
-				<ion-item onClick={() => Router.push("binomial")}>
-					Pascal
-				</ion-item>
-				<ion-item onClick={() => Router.push("binomial")}>
-					Poisson
-				</ion-item>
-				<ion-item onClick={() => Router.push("inferencia_bernoulli")}>
-					Inferencia en los procesos de Bernoulli
-				</ion-item>
+
+				{distributions.filter(dist => dist.toLowerCase().includes(search.toLowerCase())).map((distribution) => (
+					<ion-item onClick={() => Router.push(distribution.replace(/ /g, "-").toLowerCase())}>
+						{distribution}
+					</ion-item>
+				))}
+				
 			</ion-content>
 		</>
 	);
