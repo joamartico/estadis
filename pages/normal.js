@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import IonInput from "../components/IonInput";
 import { Fbinomial, Gbinomial, Pbinomial } from "../functions/binomial";
-import { Fnormal, Gnormal, Pnormal, PnormalStd } from "../functions/normal";
+import { Fnormal, Gnormal, Pnormal, FnormalStd } from "../functions/normal";
 
 const normal = (props) => {
 	const [x, setX] = useState(undefined);
@@ -15,10 +15,10 @@ const normal = (props) => {
 		let iP = 0.001;
 		while (Math.abs(Fbinomial(r, n, iP) - fb) > 0.001) {
 			//iP = iP + 0.001; // deberia dupicarlo o dividirlo condicionalmente
-			if(Fbinomial(r, n, iP) > fb){
-				iP = iP * 2
+			if (Fbinomial(r, n, iP) > fb) {
+				iP = iP * 2;
 			} else {
-				iP = iP * 2/3
+				iP = (iP * 2) / 3;
 			}
 		}
 		return iP;
@@ -100,10 +100,9 @@ const normal = (props) => {
 
 						<ion-item>
 							<ion-label>
-								Gn({x || "x"} / {µ || "µ"} ; {σ || "σ"}) =&nbsp;&nbsp;
-								{σ && µ && x
-									? Gnormal(x, µ, σ).toFixed(5)
-									: ""}
+								Gn({x || "x"} / {µ || "µ"} ; {σ || "σ"})
+								=&nbsp;&nbsp;
+								{σ && µ && x ? Gnormal(x, µ, σ).toFixed(5) : ""}
 							</ion-label>
 						</ion-item>
 

@@ -80,13 +80,13 @@ const inferencia_bernoulli = () => {
 				let resβ = -1;
 				let resα = -1;
 				for (
-					let iRc = Math.floor(iN * 0.01);
-					iRc < Math.ceil(iN * 0.2) && !found;
-					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
+					let iRc = Math.floor(iN * 0.05); // muy bajo? (antes: 0.01)
+					iRc < Math.ceil(iN * 0.2) && !found && resα < 0;
+					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; 
 					iRc =
 						Math.floor(iN * 0.0001) == 0
 							? iRc + 1
-							: iRc + Math.floor(iN * 0.0001) + 1 // muy bajo
+							: iRc + Math.floor(iN * 0.0001) + 1 
 				) {
 					const Fb = Fbinomial(iRc, iN, po); // α
 					const Gb = Gbinomial(iRc + 1, iN, p1); // β
@@ -113,7 +113,7 @@ const inferencia_bernoulli = () => {
 						resβ.toFixed(4)
 					);
 
-					if (resα < 0 && resβ < 0 && Gb / β > 0.6 && Fb / α  > 0.6) {
+					if (resα < 0 && resβ < 0 && Gb / β > 0.6 && Fb / α > 0.6) {
 						// best.resα = resα;
 						// best.resβ = resβ;
 						found = true;
@@ -152,21 +152,24 @@ const inferencia_bernoulli = () => {
 			<ion-content>
 				<ion-list>
 					<ion-list-header>
-						<h2>Inferencia en los procesos de Bernoulli{option && `, caso ${option}`}</h2>
+						<h2>
+							Inferencia en los procesos de Bernoulli
+							{option && `, caso ${option}`}
+						</h2>
 					</ion-list-header>
 
 					{!option ? (
 						<>
 							<ion-item onClick={() => setOption(1)}>
-									Ensayo de Hipótesis Ho) p ≤ po{" "}
+								Ensayo de Hipótesis Ho) p ≤ po{" "}
 							</ion-item>
 
 							<ion-item onClick={() => setOption(2)}>
-									Ensayo de Hipótesis Ho) p ≥ po{" "}
+								Ensayo de Hipótesis Ho) p ≥ po{" "}
 							</ion-item>
 
 							<ion-item onClick={() => setOption(3)}>
-									Intervalo de confianza para p
+								Intervalo de confianza para p
 							</ion-item>
 						</>
 					) : (
@@ -218,15 +221,40 @@ const inferencia_bernoulli = () => {
 							<ion-button onClick={() => calculate(option)}>
 								Calcular n y rc
 							</ion-button>
-
-							<ion-item>n = {best.n}</ion-item>
-							<ion-item>rc = {best.rc}</ion-item>
-							<ion-item>
-								α = {option == 1 ? Gbinomial(best.rc, best.n, po).toFixed(5) : Fbinomial(best.rc, best.n, po).toFixed(5)}
-							</ion-item>
-							<ion-item>
-								β = {option == 1 ? Fbinomial(best.rc - 1, best.n, p1).toFixed(5) : Gbinomial(best.rc + 1, best.n, p1).toFixed(5)}
-							</ion-item>
+							{best.rc && best.n && (
+								<>
+									<ion-item>n = {best.n}</ion-item>
+									<ion-item>rc = {best.rc}</ion-item>
+									<ion-item>
+										α ={" "}
+										{option == 1
+											? Gbinomial(
+													best.rc,
+													best.n,
+													po
+											  ).toFixed(5)
+											: Fbinomial(
+													best.rc,
+													best.n,
+													po
+											  ).toFixed(5)}
+									</ion-item>
+									<ion-item>
+										β ={" "}
+										{option == 1
+											? Fbinomial(
+													best.rc - 1,
+													best.n,
+													p1
+											  ).toFixed(5)
+											: Gbinomial(
+													best.rc + 1,
+													best.n,
+													p1
+											  ).toFixed(5)}
+									</ion-item>
+								</>
+							)}
 						</>
 					)}
 				</ion-list>
