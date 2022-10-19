@@ -83,7 +83,7 @@ const normal = (props) => {
 					<>
 						<ion-item>
 							<ion-label>
-								Fn({x || "x"} / {µ || "µ"}, {σ || "σ"}) ={" "}
+								Fn({x || "x"} / {µ || "µ"} ; {σ || "σ"}) ={" "}
 							</ion-label>
 							{σ && µ && x ? (
 								Fnormal(x, µ, σ).toFixed(5)
@@ -100,7 +100,7 @@ const normal = (props) => {
 
 						<ion-item>
 							<ion-label>
-								Gn({x || "x"} / {µ || "µ"}, {σ || "σ"}) =&nbsp;&nbsp;
+								Gn({x || "x"} / {µ || "µ"} ; {σ || "σ"}) =&nbsp;&nbsp;
 								{σ && µ && x
 									? Gnormal(x, µ, σ).toFixed(5)
 									: ""}
@@ -109,7 +109,7 @@ const normal = (props) => {
 
 						{/* <ion-item>
 							<ion-label>
-								Pn({x || "x"} / {µ || "µ"}, {σ || "σ"}) =&nbsp;&nbsp;
+								Pn({x || "x"} / {µ || "µ"} ; {σ || "σ"}) =&nbsp;&nbsp;
 								{σ && µ && x
 									? Pnormal(x, µ, σ).toFixed(5)
 									: ""}

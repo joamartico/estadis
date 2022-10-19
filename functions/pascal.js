@@ -4,7 +4,7 @@ import Big from "big.js";
 
 
 
-export function Ppascal(r, n, p) {
+export function Ppascal(n, r, p) {
 	let value;
 	if (n < 500) {
 		value =
@@ -19,7 +19,7 @@ export function Ppascal(r, n, p) {
 	return value;
 }
 
-export function Fpascal(r, n, p) {
+export function Fpascal(n, r, p) {
 
 	// if(n * p > 10 && n *(1-p) > 10){
 	// 	return Fnormal(r+0.5, n*p, Math.sqrt(n*p*(1-p)))
@@ -32,7 +32,7 @@ export function Fpascal(r, n, p) {
 	return sum;
 }
 
-export function Gpascal(r, n, p) {
+export function Gpascal(n, r, p) {
 	// if(n * p > 10 && n *(1-p) > 10){
 	// 	return 1 - Fnormal(r-0.5, n*p, Math.sqrt(n*p*(1-p)))
 	// }

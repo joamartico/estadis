@@ -11,7 +11,7 @@ export default function Home() {
 		"Binomial",
 		"Normal",
 		"Pascal",
-		"Possion",
+		"Poisson",
 		"Inferencia Bernoulli",
 	];
 

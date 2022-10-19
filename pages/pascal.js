@@ -69,25 +69,25 @@ const pascal = (props) => {
 					<>
 						<ion-item>
 							<ion-label>
-								Fb({r || "r"} / {n || "n"}, {p || "p"})
+								Fb({n || "n"} / {r || "r"} ; {p || "p"})
                                 =&nbsp;&nbsp;
-								{n && p && r && Fpascal(r, n, p).toFixed(5)}
+								{n && p && r && Fpascal(n, r, p).toFixed(5)}
 							</ion-label>
 						</ion-item>
 
 						<ion-item>
 							<ion-label>
-								Gb({r || "r"} / {n || "n"}, {p || "p"})
+								Gb({n || "n"} / {r || "r"} ; {p || "p"})
 								=&nbsp;&nbsp;
-								{n && p && r ? Gpascal(r, n, p).toFixed(5) : ""}
+								{n && p && r ? Gpascal(n, r, p).toFixed(5) : ""}
 							</ion-label>
 						</ion-item>
 
 						<ion-item>
 							<ion-label>
-								Pb({r || "r"} / {n || "n"}, {p || "p"})
+								Pb({n || "n"} / {r || "r"} ; {p || "p"})
 								=&nbsp;&nbsp;
-								{n && p && r ? Ppascal(r, n, p).toFixed(5) : ""}
+								{n && p && r ? Ppascal(n, r, p).toFixed(5) : ""}
 							</ion-label>
 						</ion-item>
 					</>
