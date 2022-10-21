@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { defineCustomElements as ionDefineCustomElements } from "@ionic/core/loader";
+import TagManager from 'react-gtm-module';
+
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/core/css/core.css";
@@ -26,6 +28,15 @@ function MyApp({ Component, pageProps }) {
 	useEffect(() => {
 		ionDefineCustomElements(window);
 	});
+
+	useEffect(() => {
+		if(process.env.NEXT_PUBLIC_GTM_ID 
+			// && process.env.NEXT_PUBLIC_ENV == 'PROD'
+		){
+		  TagManager.initialize({ gtmId: process.env.NEXT_PUBLIC_GTM_ID});
+		}
+	  }, []);
+
 	return (
 		<>
 			<Head>

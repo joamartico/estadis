@@ -23,15 +23,14 @@ const inferencia_bernoulli = () => {
 				for (
 					let iRc = Math.floor(iN * 0.01);
 					iRc < Math.ceil(iN * 0.2) && !found && resβ < 0;
-					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; // muy bajo
 					iRc =
 						Math.floor(iN * 0.0001) == 0
 							? iRc + 1
-							: iRc + Math.floor(iN * 0.0001) + 1 // muy bajo
+							: iRc + Math.floor(iN * 0.0001) + 1 
 				) {
 					const Gb = Gbinomial(iRc, iN, po); // α
 					const Fb = Fbinomial(iRc - 1, iN, p1); // β
-					// let res = Gb + Fb - (α + β);
+
 					resα = Gb - α;
 					resβ = Fb - β;
 
@@ -55,8 +54,6 @@ const inferencia_bernoulli = () => {
 					);
 
 					if (resα < 0 && resβ < 0 && Gb / α > 0.6 && Fb / β > 0.6) {
-						// best.resα = resα;
-						// best.resβ = resβ;
 						found = true;
 						best.n = iN;
 						best.rc = iRc;
@@ -65,11 +62,11 @@ const inferencia_bernoulli = () => {
 
 				iN = Math.ceil(iN + iN * 0.01);
 			}
-			console.log("best: ", best);
-			// console.log("bestRes: ", best.res);
+			console.log(best)
 			setBest(best);
 			return best;
 		}
+
 
 		if (caso == 2) {
 			let best = {};
@@ -82,7 +79,6 @@ const inferencia_bernoulli = () => {
 				for (
 					let iRc = Math.floor(iN * 0.05); // muy bajo? (antes: 0.01)
 					iRc < Math.ceil(iN * 0.2) && !found && resα < 0;
-					// iRc < Math.ceil(iN * 0.03) && resβ < 0 && resα < 0.9; 
 					iRc =
 						Math.floor(iN * 0.0001) == 0
 							? iRc + 1
@@ -90,7 +86,6 @@ const inferencia_bernoulli = () => {
 				) {
 					const Fb = Fbinomial(iRc, iN, po); // α
 					const Gb = Gbinomial(iRc + 1, iN, p1); // β
-					// let res = Gb + Fb - (α + β);
 					resα = Fb - α;
 					resβ = Gb - β;
 
@@ -114,8 +109,6 @@ const inferencia_bernoulli = () => {
 					);
 
 					if (resα < 0 && resβ < 0 && Gb / β > 0.6 && Fb / α > 0.6) {
-						// best.resα = resα;
-						// best.resβ = resβ;
 						found = true;
 						best.n = iN;
 						best.rc = iRc;
@@ -123,10 +116,8 @@ const inferencia_bernoulli = () => {
 				}
 
 				iN = Math.ceil(iN + iN * 0.01);
-				// iN = iN + 1
 			}
-			console.log("best: ", best);
-			// console.log("bestRes: ", best.res);
+			console.log(best)
 			setBest(best);
 			return best;
 		}
@@ -145,7 +136,6 @@ const inferencia_bernoulli = () => {
 							Back
 						</ion-button>
 					</ion-buttons>
-					{/* <ion-title>Binomial</ion-title> */}
 				</ion-toolbar>
 			</ion-header>
 

@@ -1,8 +1,8 @@
 import { fact } from "./general";
-
 import Big from "big.js";
 import { Fnormal, FnormalStd } from "./normal";
 import { Fbeta } from "./beta";
+
 
 export function Pbinomial(r, n, p) {
 	let value;
@@ -20,6 +20,7 @@ export function Pbinomial(r, n, p) {
 
 	return value;
 }
+
 
 export function Fbinomial(r, n, p) {
 	if (n < 1000) {
@@ -39,12 +40,13 @@ export function Fbinomial(r, n, p) {
 	}
 }
 
+
 export function Gbinomial(r, n, p) {
 	if(n < 1000){
 		return 1 - Fbinomial(r - 1, n, p);
 	}
 
-	if (n > 1000) { // EN QUÉ CASOS Gbinomial = Fbeta
+	if (n > 1000) { // EN QUÉ CASOS:  Gbinomial = Fbeta  ?
 		return Fbeta(p, r, n - r); 
 	}
 	if (n * p > 10 && n * (1 - p) > 10) {
