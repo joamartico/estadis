@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Router from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -27,6 +28,10 @@ const binomial = (props) => {
 
 	return (
 		<>
+			<Head>
+				<title>Binomial Distribution - Estadis</title>
+			</Head>
+			
 			<ion-header translucent>
 				<ion-toolbar>
 					<ion-buttons slot="start">

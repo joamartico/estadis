@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Router from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -11,6 +12,10 @@ const pascal = (props) => {
 
 	return (
 		<>
+			<Head>
+				<title>Pascal Distribution - Estadis</title>
+			</Head>
+
 			<ion-header translucent>
 				<ion-toolbar>
 					<ion-buttons slot="start">
@@ -70,7 +75,7 @@ const pascal = (props) => {
 						<ion-item>
 							<ion-label>
 								Fb({n || "n"} / {r || "r"} ; {p || "p"})
-                                =&nbsp;&nbsp;
+								=&nbsp;&nbsp;
 								{n && p && r && Fpascal(n, r, p).toFixed(5)}
 							</ion-label>
 						</ion-item>

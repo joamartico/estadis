@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Router from "next/router";
 import { useState } from "react";
 import IonInput from "../components/IonInput";
@@ -26,7 +27,7 @@ const inferencia_bernoulli = () => {
 					iRc =
 						Math.floor(iN * 0.0001) == 0
 							? iRc + 1
-							: iRc + Math.floor(iN * 0.0001) + 1 
+							: iRc + Math.floor(iN * 0.0001) + 1
 				) {
 					const Gb = Gbinomial(iRc, iN, po); // α
 					const Fb = Fbinomial(iRc - 1, iN, p1); // β
@@ -62,11 +63,10 @@ const inferencia_bernoulli = () => {
 
 				iN = Math.ceil(iN + iN * 0.01);
 			}
-			console.log(best)
+			console.log(best);
 			setBest(best);
 			return best;
 		}
-
 
 		if (caso == 2) {
 			let best = {};
@@ -82,7 +82,7 @@ const inferencia_bernoulli = () => {
 					iRc =
 						Math.floor(iN * 0.0001) == 0
 							? iRc + 1
-							: iRc + Math.floor(iN * 0.0001) + 1 
+							: iRc + Math.floor(iN * 0.0001) + 1
 				) {
 					const Fb = Fbinomial(iRc, iN, po); // α
 					const Gb = Gbinomial(iRc + 1, iN, p1); // β
@@ -117,7 +117,7 @@ const inferencia_bernoulli = () => {
 
 				iN = Math.ceil(iN + iN * 0.01);
 			}
-			console.log(best)
+			console.log(best);
 			setBest(best);
 			return best;
 		}
@@ -125,6 +125,10 @@ const inferencia_bernoulli = () => {
 
 	return (
 		<>
+			<Head>
+				<title>Inferencia de Bernoulli - Estadis</title>
+			</Head>
+
 			<ion-header translucent>
 				<ion-toolbar>
 					<ion-buttons slot="start">
